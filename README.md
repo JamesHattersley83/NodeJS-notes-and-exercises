@@ -8,9 +8,9 @@ This is a repo containing all my notes and code exercises from the learning and 
 
 - **require** is a function, that you pass a 'path' too.
 - **module.exports** is what the require function returns.
-- this happens because my our code is wrapped in a function that is passed these things as parameters.
+- this happens because our code is wrapped in a function that is passed these things as parameters.
 
-#### JSON("JavaScript Object Notation)
+#### JSON("JavaScript Object Notation”)
 
 - A standard for structuring data.
 - Inspired by JavaScript Object Literals.
