@@ -1,3 +1,4 @@
+// Most popular module pattern
 var greeting = "Hello World!!!!!";
 
 var greet = function() {
