@@ -64,3 +64,56 @@ In NodeJS the two events we talk about are:
 ## The Event Emitter
 
 An **Event Listener** is the code that responds to an event. In JS terms the listener would be a function.
+
+You can have many **Event listeners** in your app that are listening for the same event. When the event occurs all the **Event listeners** will invoke or run one at a time.
+
+## Magic Strings
+
+This is a string that has some special meaning to the code. This is bad as it makes it easy for a typo that can cause a bug. This will make it hard for us to use tools to find the bug.
+
+A way around this problem is to save the event names as strings in a config module.
+
+```javascript
+// config.js
+module.exports = {
+  events: {
+    GREET: "greet"
+  }
+};
+```
+
+We can then use the property name in place of the string. This means if we had to change the name of the string we only have to do it in one place.
+
+```javascript
+// app.js
+var Emitter = require("./emitter");
+var eventConfig = require("./config").events;
+
+var emtr = new Emitter();
+
+emtr.on(eventConfig.GREET, function() {
+  console.log("Someone said hello!");
+});
+```
+
+## Object.create and Prototypes
+
+Other than using function constructors to create objects and set up the prototype chain we can use the **Object.create** method.
+This is a simple way by using an object literal to set up the basis or template for creating any new objects.
+
+```javascript
+// app.js
+var person = {
+  firstname: "",
+  lastname: "",
+  greet: function() {
+    return this.firstname + " " + this.lastname;
+  }
+};
+
+var james = Object.create(person);
+james.firstname = "James";
+james.lastname = "Hattersley";
+```
+
+Any new object created will have its prototype pointing to the original person object.
