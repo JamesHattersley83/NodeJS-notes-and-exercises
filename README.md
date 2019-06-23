@@ -67,7 +67,7 @@ An **Event Listener** is the code that responds to an event. In JS terms the lis
 
 You can have many **Event listeners** in your app that are listening for the same event. When the event occurs all the **Event listeners** will invoke or run one at a time.
 
-## Magic Strings
+### Magic Strings
 
 This is a string that has some special meaning to the code. This is bad as it makes it easy for a typo that can cause a bug. This will make it hard for us to use tools to find the bug.
 
@@ -117,3 +117,83 @@ james.lastname = "Hattersley";
 ```
 
 Any new object created will have its prototype pointing to the original person object.
+
+## Inheriting From the Event Emitter - Part 1
+
+- The .inherits() function is used as another method to create the prototype chain.
+- The **utils** core module holds this method and helps us with inheritance.
+
+```javascript
+// utils.js
+exports.inherits = function(ctor, superCtor) {
+  ....
+}
+```
+
+- ctor - the constructor function you want to add properties and methods to that are available to new objects created from it.
+- superCtor - the constructor function that has the properties and methods you want your new objects to have access to.
+
+## Node ES6 and Template Literals
+
+Node now supports ES6 as with the new updates to the V8 engine. One of the new features of ES6 is **Template Literals** which is a new and clean way to concatenate strings.
+
+```javascript
+var name = "James";
+
+var greet = `Hello ${name}`;
+```
+
+## .call() and .apply()
+
+- These are two more ways to invoke a function.
+- They are used to bind the .this keyword inside the function.
+- The only difference between **.call()** and **.apply()** is that you can pass parameters as arrays with **.apply()**.
+
+```javascript
+var obj = {
+  name: "James",
+  greet: function(param1, param2) {
+    console.log(`Hello ${this.name}`);
+  }
+};
+
+obj.greet();
+obj.greet.call({ name: "John Doe" }, param1, param2);
+obj.greet.apply({ name: "John Doe" }, [param1, param2]);
+```
+
+## Inheriting From the Event Emitter - Part 2
+
+One issue when inheriting from the EventEmitter obj is that we dont have access to any methods or properties that are added directly to the object and not to the prototype. A way around this is to use the **.call()** function inside our new constructor function.
+Anything that is added to the EventEmitter we will access to in our new object.
+
+```javascript
+function Greetr() {
+  EventEmitter.call(this);
+  this.greeting = "Hello World";
+}
+```
+
+## ES6 Classes
+
+Classes are a new way of creating objects in javascript. This is just **Syntactic Sugar**.
+
+- **Syntactic Sugar** - A feature that only changes how you write something and doesnt affect anything under the hood.
+
+```javascript
+"use strict";
+
+class Person {
+  constructor(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+  }
+
+  greet() {
+    console.log(`Hello ${this.firstname} ${this.lastname}`);
+  }
+}
+
+var james = new Person("James", "Hattersley");
+james.greet(); // Hello James Hattersley
+```
