@@ -50,9 +50,9 @@ The **require** function is used to organise complex modules. If a folder is pas
 var util = require("util");
 ```
 
-# Events and the Event Emitter
+## Events and the Event Emitter
 
-## Events
+### Events
 
 An **event** is something that has happened in our app that we can respond to.
 
@@ -61,7 +61,7 @@ In NodeJS the two events we talk about are:
 - System Events - come from the C++ Core using a library called libuv. These events come from the computer system.
 - Custom Events - come from the JavaScript core. The **Event Emitter** is a file inside the JS core where we have custom events.
 
-## The Event Emitter
+### The Event Emitter
 
 An **Event Listener** is the code that responds to an event. In JS terms the listener would be a function.
 
@@ -96,7 +96,7 @@ emtr.on(eventConfig.GREET, function() {
 });
 ```
 
-## Object.create and Prototypes
+### Object.create and Prototypes
 
 Other than using function constructors to create objects and set up the prototype chain we can use the **Object.create** method.
 This is a simple way by using an object literal to set up the basis or template for creating any new objects.
@@ -118,7 +118,7 @@ james.lastname = "Hattersley";
 
 Any new object created will have its prototype pointing to the original person object.
 
-## Inheriting From the Event Emitter - Part 1
+### Inheriting From the Event Emitter - Part 1
 
 - The .inherits() function is used as another method to create the prototype chain.
 - The **utils** core module holds this method and helps us with inheritance.
@@ -133,7 +133,7 @@ exports.inherits = function(ctor, superCtor) {
 - ctor - the constructor function you want to add properties and methods to that are available to new objects created from it.
 - superCtor - the constructor function that has the properties and methods you want your new objects to have access to.
 
-## Node ES6 and Template Literals
+### Node ES6 and Template Literals
 
 Node now supports ES6 as with the new updates to the V8 engine. One of the new features of ES6 is **Template Literals** which is a new and clean way to concatenate strings.
 
@@ -143,7 +143,7 @@ var name = "James";
 var greet = `Hello ${name}`;
 ```
 
-## .call() and .apply()
+### .call() and .apply()
 
 - These are two more ways to invoke a function.
 - They are used to bind the .this keyword inside the function.
@@ -162,7 +162,7 @@ obj.greet.call({ name: "John Doe" }, param1, param2);
 obj.greet.apply({ name: "John Doe" }, [param1, param2]);
 ```
 
-## Inheriting From the Event Emitter - Part 2
+### Inheriting From the Event Emitter - Part 2
 
 One issue when inheriting from the EventEmitter obj is that we dont have access to any methods or properties that are added directly to the object and not to the prototype. A way around this is to use the **.call()** function inside our new constructor function.
 Anything that is added to the EventEmitter we will access to in our new object.
@@ -174,7 +174,7 @@ function Greetr() {
 }
 ```
 
-## ES6 Classes
+### ES6 Classes
 
 Classes are a new way of creating objects in javascript. This is just **Syntactic Sugar**.
 
@@ -197,3 +197,45 @@ class Person {
 var james = new Person("James", "Hattersley");
 james.greet(); // Hello James Hattersley
 ```
+
+### Inheriting From the Event Emitter - Part 3
+
+The function constructor can be converted into an ES6 class and exported as a module to be used else where.
+
+```javascript
+module.exports = class Greetr extends EventEmitter {
+  constructor() {
+    super(); // replaces EventEmitter.call(this)
+    this.greeting = "Hello World";
+  }
+
+  // adds greet function to prototype
+  greet(data) {
+    console.log(`${this.greeting}: ${data}`);
+    this.emit("greet", data);
+  }
+};
+```
+
+- **extends EventEmitter** replaces **utils.inherits()**
+- **super** replaces **EventEmitter.call(this)**
+- **module.exports** exports the class as a module
+
+## Asynchronous Code libuv The Event Loop Streams Files and more
+
+### Javascript is Synchronous
+
+**Asynchronous** means more than one running simultanenously.
+Node does things asynchronously, V8 does not.
+
+**Synchronous** is one process executing at a time.
+Javascript is synchronous. This means one line of code executing at a time.
+NodeJs is asychronous which means it can do other things at the same time.
+
+### Callbacks
+
+A function passed to another function assuming it will be invoked at some point.
+The function 'calls back' invoking the function you give it when its done doing its work.
+
+**Non-blocking** means doing things without stopping the program from running.
+Node makes this happnen by doing things asynchronously.
