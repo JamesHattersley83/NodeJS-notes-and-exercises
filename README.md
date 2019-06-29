@@ -239,3 +239,15 @@ The function 'calls back' invoking the function you give it when its done doing 
 
 **Non-blocking** means doing things without stopping the program from running.
 Node makes this happnen by doing things asynchronously.
+
+### Libuv
+
+**libuv** is a library that deals with events occuring on the operating system. It has a queue which holds events that have completed. This runs at the same time the V8 engine is running its code.
+Inside **libuv** is something called the **Event Loop**. The **Event Loop** is constantly checking the queue to see that something has happened.
+Once the **Event Loop** sees that something is complete in the queue is processes it and runs a callback to the V8 engine. The V8 engine will only run this code once it has finished processing what it is currently running. This is because JavaScript is synchronous.
+
+### Streams and Buffers
+
+**Buffer** - A temporary holding spot for data being moved from one place to another. It is intentionally limited in size.
+
+**Stream** - A sequence of data made available over time. These are pieces of data that eventually combine into something whole.
