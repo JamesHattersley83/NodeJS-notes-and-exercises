@@ -266,3 +266,23 @@ The numbers (or **code points**) are converted and stored in binary. **UTF-8** i
 ### ES6 Typed Arrays
 
 **Byte** - 8 bits, e.g 01001001
+
+## HTTP and being a Web Server
+
+### Build a Web Server in Node
+
+```javascript
+var http = require("http");
+
+http
+  .createServer(function(req, res) {
+    res.writeHead(200, { "content-type": "text/plain" });
+    res.end("Hello World\n");
+  })
+  .listen(3000, "127.0.0.1");
+```
+
+### HTML and Templates
+
+**Templates** - Text designed to be the basis for the final text or content after being processed.
+Usually a template language is used so the template system knows how to replace placeholders with real values.
