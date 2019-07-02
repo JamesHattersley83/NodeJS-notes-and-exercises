@@ -251,3 +251,18 @@ Once the **Event Loop** sees that something is complete in the queue is processe
 **Buffer** - A temporary holding spot for data being moved from one place to another. It is intentionally limited in size.
 
 **Stream** - A sequence of data made available over time. These are pieces of data that eventually combine into something whole.
+
+### Binary Data Character Sets and Encodings
+
+**Binary Data** - Data stored in binary (sets of 1's and 0's).
+The core of the math that computers are based on. Each one or zero is called a **'bit'** or **'binary digit'**.
+
+**Character Set** - A representation of characters as numbers.
+Each character gets a number. **Unicode** and **ASCII** are character sets.
+
+**Character Encoding** - How characters are stored in binary.
+The numbers (or **code points**) are converted and stored in binary. **UTF-8** is an example of character encoding.
+
+### ES6 Typed Arrays
+
+**Byte** - 8 bits, e.g 01001001
