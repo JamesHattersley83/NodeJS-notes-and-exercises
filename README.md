@@ -286,3 +286,57 @@ http
 
 **Templates** - Text designed to be the basis for the final text or content after being processed.
 Usually a template language is used so the template system knows how to replace placeholders with real values.
+
+### APIs and Endpoints
+
+**API** - A set of tools for building a Web Application.
+Stands for 'Application Programming Interface'. On the Web the tools are made available via a set or URLs which accept and send only data via HTTP and TCP/IP.
+
+**Endpoint** - One URL in a Web API. Sometimes that endpoint (URL) does multiple things by making choices depending on the HTTP request headers.
+
+### Outputting JSON
+
+**Serialize** - Translating an object into a format that can be stored or transferred. JSON, CSV, XML are all popular.
+**Deserialize** - This is the opposite so converting back into an object.
+
+```javascript
+var http = require("http");
+
+http
+  .createServer(function(req, res) {
+    res.writeHead(200, { "content-type": "application/json" });
+    var obj = {
+      firstname: "James",
+      lastname: "Hattersley"
+    };
+    res.end(JSON.stringify(obj));
+  })
+  .listen(3000, "127.0.0.1");
+```
+
+### Routing
+
+**Routing** is mapping a HTTP request to a source of content. This could be actual existing files on the server or not.
+
+```javascript
+var http = require("http");
+var fs = require("fs");
+
+http
+  .createServer(function(req, res) {
+    if (req.url === "/") {
+      fs.createReadStream(__dirname + "/index.html").pipe(res);
+    } else if (req.url === "/api") {
+      res.writeHead(200, { "content-type": "application/json" });
+      var obj = {
+        firstname: "James",
+        lastname: "Hattersley"
+      };
+      res.end(JSON.stringify(obj));
+    } else {
+      res.writeHead(404);
+      res.end();
+    }
+  })
+  .listen(3000, "127.0.0.1");
+```
