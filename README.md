@@ -340,3 +340,67 @@ http
   })
   .listen(3000, "127.0.0.1");
 ```
+
+## Express
+
+**Environment Variables** - Global variables specific to the environment(server) our code is living in.
+Different servers can have different variable settings, and we can access those variables in code.
+
+**HTTP Method** - Specifies the type of action the request wishes to make.
+GET, POST, DELETE, and others. Also called **verbs**.
+
+Example server built with Express
+
+```javascript
+var express = require("express");
+var app = express();
+
+var port = process.env.PORT || 3000;
+
+app.get("/", function(req, res) {
+  res.send("Hello World");
+});
+
+app.get("/api", function(req, res) {
+  res.json({
+    firstname: "James",
+    lastname: "Hattersley"
+  });
+});
+
+app.listen(port);
+```
+
+## Express Routing
+
+We can pass variables via the route using the **req.params** object.
+**:id** is the variable passed to the object.
+
+```javascript
+app.get("/person/:id", function(req, res) {
+  res.send("Person: " + req.params.id);
+});
+```
+
+### Static files and Middleware
+
+**Middleware** - Code that sits between two layers of software. In the case of Express, sitting between the request and the response.
+
+Middleware can deliver static files via HTTP request.
+
+```javascript
+// middleware
+app.use("/assets", express.static(__dirname + "/public"));
+
+app.get("/", function(req, res) {
+  res.send(
+    "<html><head><link href='assets/style.css' type='text/css' rel='stylesheet'/></head><body><h1>Hello World</h1></body></html>"
+  );
+});
+
+// We can also add our own Middleware
+app.get("/", function(req, res, next) {
+  console.log("Request Url:" + req.url);
+  next();
+});
+```
