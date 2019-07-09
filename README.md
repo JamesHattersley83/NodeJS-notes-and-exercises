@@ -373,7 +373,7 @@ app.get("/api", function(req, res) {
 app.listen(port);
 ```
 
-## Express Routing
+### Express Routing
 
 We can pass variables via the route using the **req.params** object.
 **:id** is the variable passed to the object.
@@ -424,3 +424,36 @@ By default express looks inside a folder called **views** for the template files
 - **POST** request the querystring is moved to the body.
 
 To pull the querystrings from the body of the POST request we need to use a middlewear called **body-parser**.
+
+### RESTful APIs and JSON
+
+**REST** - An architechtural style for building APIs.
+Stands for 'Representational State Transfer'. We decide that HTTP verbs and URLs mean something.
+
+Example RESTful API
+
+```javascript
+// RESTful API
+
+app.get("/api/person/:id", function(req, res) {
+  // get data from database
+  res.json({
+    firstname: "James",
+    lastname: "Hattersley"
+  });
+});
+
+app.post("/api/person", jsonParser, function(req, res) {
+  // save person to database
+});
+
+app.delete("/api/person/:id", function(req, res) {
+  // delete person from database
+});
+```
+
+## Javascript JSON and Databases
+
+### Relational Databases and SQL
+
+A relational database is a table that has columns or fields and rows of data. Data can be split up into different tables but linked using an id.
