@@ -47,4 +47,22 @@ app.get("/api", function(req, res) {
   });
 });
 
+// RESTful API
+
+app.get("/api/person/:id", function(req, res) {
+  // get data from database
+  res.json({
+    firstname: "James",
+    lastname: "Hattersley"
+  });
+});
+
+app.post("/api/person", jsonParser, function(req, res) {
+  //  save person to database
+});
+
+app.delete("/api/person/:id", function(req, res) {
+  // delete person from database
+});
+
 app.listen(port);
