@@ -343,6 +343,8 @@ http
 
 ## Express
 
+Express is a fast, unopinionated, minimalist web framework for Node.js.
+
 **Environment Variables** - Global variables specific to the environment(server) our code is living in.
 Different servers can have different variable settings, and we can access those variables in code.
 
@@ -399,8 +401,26 @@ app.get("/", function(req, res) {
 });
 
 // We can also add our own Middleware
-app.get("/", function(req, res, next) {
+app.use("/", function(req, res, next) {
   console.log("Request Url:" + req.url);
   next();
 });
 ```
+
+### Template and Template Engines
+
+Express allows you to use many template engines such as jade, ejs and handlebars.
+Once the template engine is installed using npm, you can use it using:
+
+```javascript
+app.set("view engine", "ejs");
+```
+
+By default express looks inside a folder called **views** for the template files.
+
+### Querying and Post Parameters
+
+- **GET** request the querystring is embedded in the URL.
+- **POST** request the querystring is moved to the body.
+
+To pull the querystrings from the body of the POST request we need to use a middlewear called **body-parser**.
