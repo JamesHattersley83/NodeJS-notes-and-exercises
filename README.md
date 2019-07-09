@@ -457,3 +457,7 @@ app.delete("/api/person/:id", function(req, res) {
 ### Relational Databases and SQL
 
 A relational database is a table that has columns or fields and rows of data. Data can be split up into different tables but linked using an id.
+
+**SQL** - (Structured Query Language) is used to ask questions of the database.
+
+In javascript we store data as Objects. Therefore we can represent the data from a table as an array of objects.
